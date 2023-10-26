@@ -2,15 +2,17 @@ package org.acme.controller;
 
 import java.util.List;
 
+import javax.print.attribute.standard.Media;
+
 import org.acme.dto.CustomerDTO;
 import org.acme.service.CustomerService;
-
-
+import org.jboss.logging.annotations.Param;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
@@ -70,5 +72,14 @@ public class customerController {
             return Response.serverError().build();
 
         }
+}
+@GET
+@Path("/{id}")
+@Produces(MediaType.APPLICATION_JSON)
+public CustomerDTO findCustomerById (@PathParam("id") Long id ){
+    
+        CustomerDTO customer = customerService.findCustomerById(id);
+        return customer;
+   
 }
 }
